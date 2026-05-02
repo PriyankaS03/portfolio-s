@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Priyanka S — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-family:'Poppins',sans-serif;background:#060611;color:#fff;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#060611}
+::-webkit-scrollbar-thumb{background:#8b5cf6;border-radius:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulsGlow{0%,100%{box-shadow:0 0 20px rgba(139,92,246,.3)}50%{box-shadow:0 0 60px rgba(139,92,246,.7)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+@keyframes orbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+nav.scrolled{background:rgba(6,6,17,.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.logo{font-weight:800;font-size:20px;background:linear-gradient(135deg,#c084fc,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:rgba(209,196,233,.7);text-decoration:none;font-size:13px;font-weight:500;text-transform:capitalize;transition:color .2s}
+.nav-links a:hover{color:#c084fc}
+.btn-cta{padding:10px 22px;border-radius:50px;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:transform .2s;box-shadow:0 0 22px rgba(139,92,246,.4)}
+.btn-cta:hover{transform:scale(1.05)}
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.mobile-menu{display:none;flex-direction:column;gap:14px;padding:20px 40px;background:rgba(6,6,17,.95);backdrop-filter:blur(20px)}
+.mobile-menu a{color:rgba(209,196,233,.7);text-decoration:none;font-size:14px;font-weight:500;text-transform:capitalize}
+section{padding:96px 40px}
+.max-w{max-width:1100px;margin:0 auto}
+.section-label{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(196,140,255,.8);text-align:center;margin-bottom:12px}
+.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;color:#fff;text-align:center;margin-bottom:18px}
+.section-line{width:56px;height:3px;border-radius:4px;background:linear-gradient(90deg,#8b5cf6,#ec4899);margin:0 auto 60px}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:20px;transition:transform .25s,box-shadow .25s}
+.glass:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(139,92,246,.15)}
+/* Hero */
+#home{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,92,246,.14) 0%,transparent 70%);pointer-events:none}
+canvas#orb-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-inner{display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;position:relative;z-index:2}
+.hero-text{max-width:560px;animation:fadeUp .9s ease both}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:50px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);font-size:12px;color:#c084fc;font-weight:500;margin-bottom:24px}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulsGlow .8s ease-in-out infinite}
+h1.name{font-size:clamp(42px,7vw,82px);font-weight:900;line-height:1;margin-bottom:12px}
+h1.name span.grad{background:linear-gradient(135deg,#c084fc,#ec4899,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(15px,2vw,20px);color:rgba(196,140,255,.9);font-weight:600;margin-bottom:10px}
+.hero-tag{font-size:clamp(13px,1.5vw,17px);color:rgba(209,196,233,.55);line-height:1.7;margin-bottom:32px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px}
+.btn-primary{padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 28px rgba(139,92,246,.4);text-decoration:none;display:inline-block}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 44px rgba(139,92,246,.55)}
+.btn-outline{padding:13px 28px;border-radius:50px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:transform .2s,background .2s;text-decoration:none;display:inline-block}
+.btn-outline:hover{transform:translateY(-3px);background:rgba(255,255,255,.1)}
+.hero-stats{display:flex;gap:36px}
+.stat p:first-child{font-size:26px;font-weight:900;color:#fff}
+.stat p:last-child{font-size:11px;color:rgba(196,140,255,.6);text-transform:uppercase;letter-spacing:.1em}
+/* Orb */
+.hero-orb{flex-shrink:0;position:relative;width:300px;height:300px;display:flex;align-items:center;justify-content:center;animation:fadeUp .9s ease .3s both}
+.orb-ring{position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.25)}
+.orb-ring.r1{width:280px;height:280px;animation:orbSpin 8s linear infinite}
+.orb-ring.r2{width:220px;height:220px;border-color:rgba(236,72,153,.18);animation:orbSpin 5s linear infinite reverse}
+.orb-core{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(196,140,255,.8),rgba(99,102,241,.6),rgba(30,0,60,.9));box-shadow:0 0 60px rgba(139,92,246,.5),0 0 120px rgba(139,92,246,.2),inset 0 0 30px rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:50px;z-index:1}
+.orb-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#a78bfa}
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.about-card{padding:36px}
+.about-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.tag{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:500;background:rgba(139,92,246,.15);color:#c084fc;border:1px solid rgba(139,92,246,.25)}
+.prog-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.prog-label span:last-child{color:#c084fc;font-weight:600}
+.prog-track{height:6px;background:rgba(255,255,255,.08);border-radius:6px;margin-bottom:20px;overflow:hidden}
+.prog-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#8b5cf6,#ec4899);box-shadow:0 0 10px rgba(139,92,246,.5);width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px}
+.skill-card{padding:28px 20px;text-align:center}
+.skill-icon{font-size:36px;margin-bottom:12px;display:block;transition:transform .2s}
+.skill-card:hover .skill-icon{transform:scale(1.15)}
+.skill-name{color:#fff;font-weight:600;font-size:13px}
+.skill-sub{color:rgba(196,140,255,.6);font-size:11px;margin-top:4px}
+/* Education */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.edu-card{padding:28px;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#8b5cf6,#ec4899);border-radius:4px 0 0 4px}
+.edu-icon{font-size:28px;margin-bottom:10px;padding-left:16px}
+.edu-degree{color:#fff;font-weight:700;font-size:15px;line-height:1.4;padding-left:16px}
+.edu-school{color:rgba(196,140,255,.7);font-size:12px;margin-top:6px;padding-left:16px}
+.edu-meta{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;padding-left:16px}
+.edu-year{padding:4px 12px;border-radius:50px;font-size:11px;background:rgba(139,92,246,.15);color:#c084fc;border:1px solid rgba(139,92,246,.25)}
+.edu-score{font-size:13px;font-weight:700;color:#fff}
+/* Projects */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj-card{padding:28px;display:flex;flex-direction:column;gap:16px}
+.proj-header{display:flex;align-items:center;gap:12px}
+.proj-emoji{font-size:32px}
+.proj-title{color:#fff;font-weight:700;font-size:17px}
+.proj-divider{height:1px;border-radius:1px}
+.proj-points{list-style:none;display:flex;flex-direction:column;gap:8px}
+.proj-points li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(209,196,233,.7);line-height:1.5}
+.proj-points li::before{content:'▸';margin-top:2px;flex-shrink:0}
+.proj-badge{display:inline-block;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:600;margin-top:auto}
+/* Experience */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.exp-card{padding:28px}
+.exp-subtitle{font-size:15px;font-weight:700;color:#fff;margin-bottom:20px}
+.exp-item{display:flex;gap:12px;margin-bottom:18px;align-items:flex-start}
+.exp-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.exp-text{font-size:13px;color:rgba(209,196,233,.75);line-height:1.55}
+.ach-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.ach-icon{font-size:20px}
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:36px}
+.contact-card{padding:18px 22px;display:flex;align-items:center;gap:16px}
+.contact-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);transition:transform .2s}
+.contact-card:hover .contact-icon{transform:scale(1.1)}
+.contact-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(196,140,255,.7);margin-bottom:4px}
+.contact-val{color:#fff;font-size:13px;font-weight:500;text-decoration:none;transition:color .2s;word-break:break-all}
+.contact-val:hover{color:#c084fc}
+.cta-box{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,72,153,.08));border:1px solid rgba(139,92,246,.15);backdrop-filter:blur(16px);border-radius:20px;padding:48px;text-align:center}
+.cta-box h3{font-size:24px;font-weight:800;color:#fff;margin-bottom:10px}
+.cta-box p{color:rgba(209,196,233,.55);margin-bottom:24px}
+footer{padding:32px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+footer p{font-size:13px;color:rgba(209,196,233,.35)}
+footer p:last-child{font-size:11px;color:rgba(139,92,246,.45);margin-top:6px}
+@media(max-width:900px){
+  .about-grid,.edu-grid,.proj-grid,.exp-grid{grid-template-columns:1fr}
+  .hero-orb{display:none}
+  nav .nav-links{display:none}
+  .hamburger{display:block}
+  section{padding:72px 24px}
+  nav{padding:16px 24px}
+  footer{padding:24px}
+}
+@media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<canvas id="orb-canvas"></canvas>
+
+<nav id="navbar">
+  <span class="logo">Priyanka S</span>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <button class="btn-cta" onclick="scrollTo('projects')">View Projects</button>
+  </div>
+  <button class="hamburger" id="ham">&#9776;</button>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  <a href="#home" onclick="closeMM()">Home</a>
+  <a href="#about" onclick="closeMM()">About</a>
+  <a href="#skills" onclick="closeMM()">Skills</a>
+  <a href="#education" onclick="closeMM()">Education</a>
+  <a href="#projects" onclick="closeMM()">Projects</a>
+  <a href="#contact" onclick="closeMM()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="max-w">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge"><span class="badge-dot"></span>Available for opportunities</div>
+        <h1 class="name">Priyanka <span class="grad">S</span></h1>
+        <p class="hero-sub">Artificial Intelligence &amp; Data Science Student</p>
+        <p class="hero-tag">Solving real-world problems through data-driven solutions</p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">View Projects ↗</a>
+          <a href="#contact" class="btn-outline">Contact Me</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><p>3+</p><p>Projects</p></div>
+          <div class="stat"><p>8.73</p><p>CGPA</p></div>
+          <div class="stat"><p>2027</p><p>Batch</p></div>
+        </div>
+      </div>
+      <div class="hero-orb">
+        <div class="orb-ring r1"></div>
+        <div class="orb-ring r2"></div>
+        <div class="orb-core">✦</div>
+        <div class="orb-dot" style="top:8%;right:18%;animation:floatY 2s ease-in-out infinite alternate"></div>
+        <div class="orb-dot" style="top:26%;right:10%;opacity:.7;animation:floatY 2.4s ease-in-out .3s infinite alternate"></div>
+        <div class="orb-dot" style="top:44%;right:6%;opacity:.5;animation:floatY 2.8s ease-in-out .6s infinite alternate"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="max-w reveal">
+    <p class="section-label">Get to know me</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+    <div class="about-grid">
+      <div class="glass about-card">
+        <p style="font-size:15px;line-height:1.8;color:rgba(209,196,233,.75)">
+          Artificial Intelligence &amp; Data Science student skilled in <span style="color:#c084fc;font-weight:600">Python</span>, <span style="color:#f472b6;font-weight:600">Data Analysis</span>, and <span style="color:#60a5fa;font-weight:600">Machine Learning</span>.
+        </p>
+        <p style="font-size:15px;line-height:1.8;color:rgba(209,196,233,.75);margin-top:16px">
+          Interested in solving real-world problems through data-driven approaches and developing impactful projects that make a difference in people's lives.
+        </p>
+        <div class="about-tags">
+          <span class="tag">AI Enthusiast</span>
+          <span class="tag">Data Scientist</span>
+          <span class="tag">Problem Solver</span>
+          <span class="tag">Team Leader</span>
+        </div>
+      </div>
+      <div class="glass about-card">
+        <p style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,140,255,.7);margin-bottom:24px">Skill Proficiency</p>
+        <div class="prog-label"><span>Python</span><span>85%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="85%"></div></div>
+        <div class="prog-label"><span>Machine Learning</span><span>75%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="75%"></div></div>
+        <div class="prog-label"><span>Data Analysis</span><span>80%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="80%"></div></div>
+        <div class="prog-label"><span>Problem Solving</span><span>90%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="90%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="max-w reveal">
+    <p class="section-label">What I bring</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+      <div class="glass skill-card"><span class="skill-icon">🐍</span><p class="skill-name">Python</p></div>
+      <div class="glass skill-card"><span class="skill-icon">⚙️</span><p class="skill-name">C Programming</p><p class="skill-sub">Basic</p></div>
+      <div class="glass skill-card"><span class="skill-icon">🤖</span><p class="skill-name">Machine Learning</p></div>
+      <div class="glass skill-card"><span class="skill-icon">🗄️</span><p class="skill-name">SQL</p><p class="skill-sub">Basic</p></div>
+      <div class="glass skill-card"><span class="skill-icon">📊</span><p class="skill-name">Streamlit</p><p class="skill-sub">Basic</p></div>
+      <div class="glass skill-card"><span class="skill-icon">📈</span><p class="skill-name">Data Analysis</p></div>
+      <div class="glass skill-card"><span class="skill-icon">🎯</span><p class="skill-name">Leadership</p></div>
+      <div class="glass skill-card"><span class="skill-icon">🧩</span><p class="skill-name">Problem Solving</p></div>
+      <div class="glass skill-card"><span class="skill-icon">⏱️</span><p class="skill-name">Time Management</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="max-w reveal">
+    <p class="section-label">My academic journey</p>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+    <div class="edu-grid">
+      <div class="glass edu-card">
+        <div class="edu-icon">🎓</div>
+        <p class="edu-degree">B.Tech – Artificial Intelligence and Data Science</p>
+        <p class="edu-school">Coimbatore Institute of Engineering and Technology</p>
+        <div class="edu-meta"><span class="edu-year">2023 – 2027</span><span class="edu-score">CGPA: 8.73</span></div>
+      </div>
+      <div class="glass edu-card">
+        <div class="edu-icon">📘</div>
+        <p class="edu-degree">HSC</p>
+        <p class="edu-school">Equitas Gurukul Matric Hr. Sec. School</p>
+        <div class="edu-meta"><span class="edu-year">2022 – 2023</span><span class="edu-score">Score: 91.8%</span></div>
+      </div>
+      <div class="glass edu-card">
+        <div class="edu-icon">📗</div>
+        <p class="edu-degree">SSLC</p>
+        <p class="edu-school">Equitas Gurukul Matric Hr. Sec. School</p>
+        <div class="edu-meta"><span class="edu-year">2020 – 2021</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="max-w reveal">
+    <p class="section-label">What I've built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+    <div class="proj-grid">
+      <div class="glass proj-card">
+        <div class="proj-header"><span class="proj-emoji">🛡️</span><span class="proj-title">She Sense AI</span></div>
+        <div class="proj-divider" style="background:linear-gradient(90deg,#c084fc,transparent)"></div>
+        <ul class="proj-points" style="--c:#c084fc">
+          <li style="--before-color:#c084fc"><span style="color:#c084fc;flex-shrink:0">▸</span>Safety application using Python &amp; Streamlit</li>
+          <li><span style="color:#c084fc;flex-shrink:0">▸</span>Location tracking &amp; emergency alert system</li>
+          <li><span style="color:#c084fc;flex-shrink:0">▸</span>Voice-based distress detection integration</li>
+        </ul>
+        <span class="proj-badge" style="background:rgba(192,132,252,.12);color:#c084fc;border:1px solid rgba(192,132,252,.3)">Python · Streamlit · AI</span>
+      </div>
+      <div class="glass proj-card">
+        <div class="proj-header"><span class="proj-emoji">🚦</span><span class="proj-title">Vigi Road AI</span></div>
+        <div class="proj-divider" style="background:linear-gradient(90deg,#60a5fa,transparent)"></div>
+        <ul class="proj-points">
+          <li><span style="color:#60a5fa;flex-shrink:0">▸</span>AI-based road safety system using Python</li>
+          <li><span style="color:#60a5fa;flex-shrink:0">▸</span>Analysis of unsafe road conditions</li>
+          <li><span style="color:#60a5fa;flex-shrink:0">▸</span>Identification of accident-prone areas</li>
+          <li><span style="color:#60a5fa;flex-shrink:0">▸</span>Risk classification &amp; alert system</li>
+        </ul>
+        <span class="proj-badge" style="background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.3)">Python · AI · Analysis</span>
+      </div>
+      <div class="glass proj-card">
+        <div class="proj-header"><span class="proj-emoji">💊</span><span class="proj-title">Medical Adherence Tracker</span></div>
+        <div class="proj-divider" style="background:linear-gradient(90deg,#f472b6,transparent)"></div>
+        <ul class="proj-points">
+          <li><span style="color:#f472b6;flex-shrink:0">▸</span>Built with Python for healthcare use</li>
+          <li><span style="color:#f472b6;flex-shrink:0">▸</span>Tracks medication schedules precisely</li>
+          <li><span style="color:#f472b6;flex-shrink:0">▸</span>Reminder &amp; alert notification features</li>
+          <li><span style="color:#f472b6;flex-shrink:0">▸</span>Improves patient health monitoring</li>
+        </ul>
+        <span class="proj-badge" style="background:rgba(244,114,182,.12);color:#f472b6;border:1px solid rgba(244,114,182,.3)">Python · Healthcare · ML</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE & CERTS -->
+<section id="experience">
+  <div class="max-w reveal">
+    <p class="section-label">My journey</p>
+    <h2 class="section-title">Experience &amp; Achievements</h2>
+    <div class="section-line"></div>
+    <div class="exp-grid">
+      <div class="glass exp-card">
+        <p class="exp-subtitle">💼 Experience</p>
+        <div class="exp-item"><div class="exp-num">1</div><p class="exp-text">Built real-world applications using Python and Streamlit</p></div>
+        <div class="exp-item"><div class="exp-num">2</div><p class="exp-text">Worked on safety systems and healthcare-based solutions</p></div>
+        <div class="exp-item"><div class="exp-num">3</div><p class="exp-text">Focused on practical problem-solving using data</p></div>
+      </div>
+      <div class="glass exp-card">
+        <p class="exp-subtitle">🏆 Certifications &amp; Achievements</p>
+        <div class="ach-item"><span class="ach-icon">🎖️</span><p class="exp-text">Infosys Springboard Certification</p></div>
+        <div class="ach-item"><span class="ach-icon">💡</span><p class="exp-text">Participated in Hackathons — real-world project solutions</p></div>
+        <div class="ach-item"><span class="ach-icon">🏀</span><p class="exp-text">University-level Basketball Tournament Participant</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="max-w reveal">
+    <p class="section-label">Let's connect</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+    <div class="contact-grid">
+      <div class="glass contact-card">
+        <div class="contact-icon">📧</div>
+        <div><p class="contact-label">Email</p><a class="contact-val" href="mailto:priyanka031005@gmail.com">priyanka031005@gmail.com</a></div>
+      </div>
+      <div class="glass contact-card">
+        <div class="contact-icon">📞</div>
+        <div><p class="contact-label">Phone</p><a class="contact-val" href="tel:8428887555">8428887555</a></div>
+      </div>
+      <div class="glass contact-card">
+        <div class="contact-icon">📍</div>
+        <div><p class="contact-label">Location</p><p class="contact-val">Karur, Tamil Nadu, India</p></div>
+      </div>
+      <div class="glass contact-card">
+        <div class="contact-icon">💼</div>
+        <div><p class="contact-label">LinkedIn</p><a class="contact-val" href="https://linkedin.com/in/priyanka-s-28a7282b4" target="_blank">linkedin.com/in/priyanka-s-28a7282b4</a></div>
+      </div>
+      <div class="glass contact-card">
+        <div class="contact-icon">🐙</div>
+        <div><p class="contact-label">GitHub</p><a class="contact-val" href="https://github.com/PriyankaS03" target="_blank">github.com/PriyankaS03</a></div>
+      </div>
+    </div>
+    <div class="cta-box">
+      <h3>Ready to collaborate? 🚀</h3>
+      <p>Let's build something amazing together.</p>
+      <a href="mailto:priyanka031005@gmail.com" class="btn-primary">Send a Message ✉️</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Priyanka S. All rights reserved.</p>
+  <p>Crafted with ✦ passion for AI &amp; Data Science</p>
+</footer>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+// Mobile menu
+document.getElementById('ham').addEventListener('click',()=>{
+  var m=document.getElementById('mmenu');
+  m.style.display=m.style.display==='flex'?'none':'flex';
+});
+function closeMM(){document.getElementById('mmenu').style.display='none';}
+// Smooth scroll for nav
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+// Scroll reveal
+var revealEls=document.querySelectorAll('.reveal');
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // animate progress bars if inside
+      e.target.querySelectorAll('.prog-bar').forEach(function(b){
+        b.style.width=b.dataset.w;
+      });
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+revealEls.forEach(function(el){obs.observe(el);});
+
+// Canvas floating orbs
+(function(){
+  var c=document.getElementById('orb-canvas');
+  var ctx=c.getContext('2d');
+  var raf;
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  var orbs=[
+    {x:.18,y:.3,r:70,sp:.0005,ph:0,col:'rgba(139,92,246,'},
+    {x:.8,y:.2,r:55,sp:.0007,ph:1,col:'rgba(99,102,241,'},
+    {x:.6,y:.7,r:80,sp:.0004,ph:2,col:'rgba(236,72,153,'},
+    {x:.3,y:.8,r:50,sp:.0006,ph:3,col:'rgba(59,130,246,'},
+    {x:.9,y:.6,r:65,sp:.0005,ph:4,col:'rgba(168,85,247,'},
+    {x:.5,y:.15,r:45,sp:.0008,ph:5,col:'rgba(244,114,182,'},
+  ];
+  var t=0;
+  function draw(){
+    t++;
+    ctx.clearRect(0,0,c.width,c.height);
+    // rings
+    for(var i=0;i<3;i++){
+      ctx.beginPath();
+      ctx.arc(c.width*(0.25+i*0.25),c.height*0.5+Math.sin(t*.003+i)*30,60+i*28,0,Math.PI*2);
+      ctx.strokeStyle='rgba(139,92,246,'+(0.07-i*.018)+')';
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+    orbs.forEach(function(o){
+      var ox=c.width*o.x+Math.sin(t*o.sp+o.ph)*55;
+      var oy=c.height*o.y+Math.cos(t*o.sp*.8+o.ph)*45;
+      var g=ctx.createRadialGradient(ox,oy,0,ox,oy,o.r);
+      g.addColorStop(0,o.col+'0.15)');
+      g.addColorStop(1,o.col+'0)');
+      ctx.beginPath();
+      ctx.arc(ox,oy,o.r,0,Math.PI*2);
+      ctx.fillStyle=g;
+      ctx.fill();
+    });
+    raf=requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
